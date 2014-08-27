@@ -1,0 +1,54 @@
+NAME
+    JSON::Decode::Marpa - JSON parser using Marpa
+
+VERSION
+    This document describes version 0.01 of JSON::Decode::Marpa (from Perl
+    distribution JSON-Decode-Marpa), released on 2014-08-27.
+
+SYNOPSIS
+     use JSON::Decode::Marpa qw(from_json);
+     my $data = from_json(q([1, true, "a", {"b":null}]));
+
+DESCRIPTION
+    This module is based on MarpaX::Demo::JSONParser and makes it more
+    convenient to use. I packaged this for casual benchmarking against
+    Pegex::JSON and JSON::Decode::Regexp.
+
+    The result on my computer: Pegex::JSON and JSON::Decode::Marpa are
+    roughly the same speed (but Pegex has a much smaller startup overhead
+    than Marpa). JSON::Decode::Regexp is about an order of magnitude faster
+    than this module, and JSON::XS is about *three orders of magniture*
+    faster. So that's that.
+
+FUNCTIONS
+  from_json($str) => DATA
+    Decode JSON in $str. Dies on error.
+
+FAQ
+SEE ALSO
+    JSON, JSON::PP, JSON::XS, JSON::Tiny, JSON::Decode::Regexp, Pegex::JSON.
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/JSON-Decode-Marpa>.
+
+SOURCE
+    Source repository is at
+    <https://github.com/perlancar/perl-JSON-Decode-Marpa>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-Decode-Marpa>
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+AUTHOR
+    perlancar <perlancar@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2014 by perlancar@cpan.org.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
