@@ -23,7 +23,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-Decode-Marpa
   homepage: https://metacpan.org/release/JSON-Decode-Marpa
   repository: git://github.com/perlancar/perl-JSON-Decode-Marpa.git
-version: '0.01'
+version: '0.02'
 x_Dist_Zilla:
   perl:
     version: '5.018002'

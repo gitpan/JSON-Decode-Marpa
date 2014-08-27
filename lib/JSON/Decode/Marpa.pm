@@ -1,7 +1,7 @@
 package JSON::Decode::Marpa;
 
 our $DATE = '2014-08-27'; # DATE
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 use 5.010001;
 use strict;
@@ -128,7 +128,7 @@ JSON::Decode::Marpa - JSON parser using Marpa
 
 =head1 VERSION
 
-This document describes version 0.01 of JSON::Decode::Marpa (from Perl distribution JSON-Decode-Marpa), released on 2014-08-27.
+This document describes version 0.02 of JSON::Decode::Marpa (from Perl distribution JSON-Decode-Marpa), released on 2014-08-27.
 
 =head1 SYNOPSIS
 
@@ -137,14 +137,36 @@ This document describes version 0.01 of JSON::Decode::Marpa (from Perl distribut
 
 =head1 DESCRIPTION
 
-This module is based on L<MarpaX::Demo::JSONParser> and makes it more convenient
-to use. I packaged this for casual benchmarking against L<Pegex::JSON> and
-L<JSON::Decode::Regexp>.
+This module is based on L<MarpaX::Demo::JSONParser> (using C<json.2.bnf>), but
+offers a more convenient interface for JSON decoding. I packaged this for casual
+benchmarking against L<Pegex::JSON> and L<JSON::Decode::Regexp>.
 
 The result on my computer: Pegex::JSON and JSON::Decode::Marpa are roughly the
 same speed (but Pegex has a much smaller startup overhead than Marpa).
 JSON::Decode::Regexp is about an order of magnitude faster than this module, and
-JSON::XS is about I<three orders of magniture> faster. So that's that.
+JSON::XS is about I<three orders of magnitude> faster. So that's that.
+
+This is the benchmark code used:
+
+ use 5.010;
+ use strict;
+ use warnings;
+
+ use Benchmark qw(timethese);
+ use JSON::Decode::Marpa ();
+ use JSON::Decode::Regexp ();
+ use JSON::XS ();
+ use Pegex::JSON;
+
+ my $json = q([1,"abc\ndef",-2.3,null,[],[1,2,3],{},{"a":1,"b":2}]);
+ my $pgx  = Pegex::JSON->new;
+
+ timethese -0.5, {
+     pegex  => sub { $pgx->load($json) },
+     regexp => sub { JSON::Decode::Regexp::from_json($json) },
+     marpa  => sub { JSON::Decode::Marpa::from_json($json) },
+     xs     => sub { JSON::XS::decode_json($json) },
+ };
 
 =head1 FUNCTIONS
 
